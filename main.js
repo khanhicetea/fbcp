@@ -31,6 +31,8 @@ for (pixelID in pixels) {
       body:    JSON.stringify(postBody),
       headers: { 'Content-Type': 'application/json' },
     })
+    .then(res => res.json())
+    .then(json => console.log(json))
   })
 }
 const currentTs = () => {
