@@ -18,7 +18,7 @@ for (pixelID in pixels) {
     flushTimeout: settings.buffer_interval || null,
   })
   pixels[pixelID].queue.on('flush', function(data, pixelID) {
-    const url = graphBaseUrl + "/" + pixelID + "/events"
+    const url = graphBaseUrl + "/" + pixelID + "/events?access_token=" + pixels[pixelID].token
     const postBody = {
       "data": data,
     }
