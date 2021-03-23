@@ -42,10 +42,14 @@ const fullUrl = (req) => {
   return req.protocol + '://' + req.get('Host') + req.url
 }
 const prepareData = (req, eventName, eventData, eventID) => {
+  const eventSourceUrl = new URL(req.get('Referrer') || fullUrl(req))
+  eventSourceUrl.searchParams.delete('phone')
+  eventSourceUrl.searchParams.delete('email')
+
   const pixelData = {
     "event_name": eventName,
     "event_time": currentTs(),
-    "event_source_url": req.get('Referrer') || fullUrl(req),
+    "event_source_url": eventSourceUrl.toString(),
     "action_source": "website",
     "user_data": {
       "client_user_agent": req.get('User-Agent'),
