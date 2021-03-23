@@ -1,0 +1,8 @@
+graphBaseUrl: "https://a3f7b8f8b599b2c99477586aa2aed34b.m.pipedream.net"
+buffer_size: 3
+buffer_interval: 5000
+timeout: 10
+pixels:
+  123:
+    token: "token here"
+    test_code: "TEST4233"
