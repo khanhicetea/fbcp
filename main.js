@@ -57,7 +57,7 @@ const prepareData = (req, eventName, eventData, eventID) => {
     pixelData["event_id"] = eventID
   }
   if (eventName === "Purchase") {
-    pixelData["user_data"]["ph"] = eventData["phone"]
+    // pixelData["user_data"]["ph"] = eventData["phone"]
   }
   if ('_fbc' in req.cookies) {
     pixelData["user_data"]["fbc"] = req.cookies._fbc
