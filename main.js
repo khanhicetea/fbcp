@@ -76,6 +76,7 @@ const prepareData = (req, eventName, eventData, eventID) => {
 console.log(settings)
 
 app.enable('trust proxy')
+app.disable('x-powered-by')
 app.use(cookieParser())
 
 app.get('/pixel/:pixelID/:eventName', function (req, res) {
