@@ -201,3 +201,4 @@ $RECYCLE.BIN/
 
 # Custom
 /settings.yml
+/logs/**

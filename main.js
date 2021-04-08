@@ -9,8 +9,13 @@ const fetch = require('node-fetch')
 
 const file = fs.readFileSync('./settings.yml', 'utf8')
 const settings = YAML.parse(file)
+const logging = settings.logging || false
 const pixels = settings.pixels || {}
 const graphBaseUrl = settings.graphBaseUrl || "https://graph.facebook.com/v10.0"
+
+if (logging && !fs.existsSync('logs')) {
+  fs.mkdirSync('logs')
+}
 
 for (pixelID in pixels) {
   pixels[pixelID].queue = new Queue(pixelID.toString(), {
@@ -33,6 +38,12 @@ for (pixelID in pixels) {
     })
     .then(res => res.json())
     .then(json => console.log(json))
+    .catch(err => console.error(err))
+
+    if (logging) {
+      const logLine = data.map((row) => JSON.stringify(row)).join("\n") + "\n"
+      fs.appendFile('logs/'+pixelID+'.jsonl', logLine, () => {})
+    }
   })
 }
 const currentTs = () => {
@@ -84,7 +95,12 @@ app.get('/pixel/:pixelID/:eventName', function (req, res) {
   
   const pixelID = req.params.pixelID
   if (pixelID in pixels) {
-    const customData = JSON.parse(req.query.customData)
+    try {
+      let customData = JSON.parse(req.query.customData || '{}')
+    } catch (e) {
+      customData = {}
+    }
+    
     const eventID = req.query.eventID || null
     const pixelData = prepareData(req, req.params.eventName, customData, eventID)
     pixels[pixelID].queue.add(pixelData)
