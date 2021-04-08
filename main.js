@@ -95,10 +95,11 @@ app.get('/pixel/:pixelID/:eventName', function (req, res) {
   
   const pixelID = req.params.pixelID
   if (pixelID in pixels) {
+    let customData = {}
     try {
-      let customData = JSON.parse(req.query.customData || '{}')
+      customData = JSON.parse(req.query.customData || '{}')
     } catch (e) {
-      customData = {}
+      console.error(e)
     }
     
     const eventID = req.query.eventID || null
