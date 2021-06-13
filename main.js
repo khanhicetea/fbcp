@@ -90,7 +90,7 @@ app.enable('trust proxy')
 app.disable('x-powered-by')
 app.use(cookieParser())
 
-app.get('/pixel/:pixelID/:eventName', function (req, res) {
+const route_pixel_hanlder = function (req, res) {
   res.send('ok:'+Date.now().toString())
   
   const pixelID = req.params.pixelID
@@ -106,7 +106,10 @@ app.get('/pixel/:pixelID/:eventName', function (req, res) {
     const pixelData = prepareData(req, req.params.eventName, customData, eventID)
     pixels[pixelID].queue.add(pixelData)
   }
-})
+}
+
+app.get('/pixel/:pixelID/:eventName', route_pixel_hanlder)
+app.post('/pixel/:pixelID/:eventName', route_pixel_hanlder)
 
 const listenPort = process.env.PORT || 3000
 app.listen(listenPort, () => {
