@@ -91,7 +91,7 @@ app.disable('x-powered-by')
 app.use(cookieParser())
 
 app.get('/pixel/:pixelID/:eventName', function (req, res) {
-  res.send('oke')
+  res.send('ok:'+Date.now().toString())
   
   const pixelID = req.params.pixelID
   if (pixelID in pixels) {
