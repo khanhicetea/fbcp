@@ -112,6 +112,7 @@ app.get('/pixel/:pixelID/:eventName', route_pixel_hanlder)
 app.post('/pixel/:pixelID/:eventName', route_pixel_hanlder)
 
 const listenPort = process.env.PORT || 3000
-app.listen(listenPort, () => {
+const listenBind = process.env.BIND_IP || '127.0.0.1'
+app.listen(listenPort, listenBind, () => {
     console.log('Running')
 })
