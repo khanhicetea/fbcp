@@ -67,7 +67,7 @@ const prepareData = (req, eventName, eventData, eventID) => {
       "client_ip_address": req.ip,
     },
     "custom_data": eventData,
-    "opt_out": (eventName === "Purchase" ? false : true),
+    "opt_out": false,
   }
   if (eventID) {
     pixelData["event_id"] = eventID
